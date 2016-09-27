@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        var mySmallNumber = 5;
+        var myString = "5";
+        var myBigNumber = 255;
+
+        var output1 = mySmallNumber == myString;
+        var output2 = mySmallNumber === myString;
+        var output3 = mySmallNumber < myBigNumber;
+        var output4 = mySmallNumber > myBigNumber;
+
+        console.log("out1 = " + output1);
+        console.log("out2 = " + output2);
+        console.log("out3 = " + output3);
+        console.log("out3 = " + output4);
+
+        var gameNumber = 64;
+        var userInput1 = 3;
+        var userInput2 = 64;
+
+        if(userInput1 > gameNumber){
+            console.log("Your guess is too high");
+        }
+
+        if(userInput1 < gameNumber){
+            console.log("Your guess is too low");
+        }
+
+        if(userInput1 < 1 || userInput1 > 100){
+            console.log("Your guess is out of range");
+        }else{
+            console.log("Your guess is in range");
+        }
+
+        if(userInput2 == gameNumber){
+            console.log("You guessed it!")
+        }else{
+            console.log("Please, try again");
+        }
+
+        switch(userInput1){
+            case gameNumber:
+                console.log("That\'s correct!");
+                break;
+            case (gameNumber - 10):
+                console.log("Low, but warm");
+                break;
+            case (gameNumber + 10):
+                console.log("High, but warm");
+                break;
+            case (gameNumber - 25):
+                console.log("Low, and cold");
+                break;
+            case (gameNumber + 25):
+                console.log("High, and cold");
+                break;
+            default:
+                console.log("Not even close");
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
