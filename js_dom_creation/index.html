@@ -51,7 +51,12 @@
             p1_div.append(p1_h1, p1_p, p1_p2);
             $('#playground1').append(p1_div);
             //playground 2 code
-
+            var p2_div = $('<div>').addClass('playground playground_source');
+            var p2_inDiv = $('<div>').addClass('awesome_class').text('Here is some awesome text');
+            var p2_inDiv2 = $('<div>').addClass('awesome_class').attr('id','my_aweseome_div2').text('Here is MORE awesome text');
+            var p2_inDiv3 = $('<div>').addClass('awesome_class').attr('id','my_awesome_div3').attr('data-coolness','high').text('Here is EVEN MORE awesome div text');
+            p2_div.append(p2_inDiv,p2_inDiv2, p2_inDiv3);
+            $('#playground2').append(p2_div);
             //playground 3 code
         });
     </script>
