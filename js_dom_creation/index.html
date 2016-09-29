@@ -47,17 +47,30 @@
                 text: 'This has red text',
                 style: 'color: red'
             });
-            var p1_div = $('<div>').addClass('playground playground_source');
-            p1_div.append(p1_h1, p1_p, p1_p2);
-            $('#playground1').append(p1_div);
+            var outerDiv = $('<div>').addClass('playground playground_source');
+            outerDiv.append(p1_h1, p1_p, p1_p2);
+            $('#playground1').append(outerDiv);
             //playground 2 code
-            var p2_div = $('<div>').addClass('playground playground_source');
+            outerDiv = $('<div>').addClass('playground playground_source');
             var p2_inDiv = $('<div>').addClass('awesome_class').text('Here is some awesome text');
             var p2_inDiv2 = $('<div>').addClass('awesome_class').attr('id','my_aweseome_div2').text('Here is MORE awesome text');
             var p2_inDiv3 = $('<div>').addClass('awesome_class').attr('id','my_awesome_div3').attr('data-coolness','high').text('Here is EVEN MORE awesome div text');
-            p2_div.append(p2_inDiv,p2_inDiv2, p2_inDiv3);
-            $('#playground2').append(p2_div);
+            outerDiv.append(p2_inDiv,p2_inDiv2, p2_inDiv3);
+            $('#playground2').append(outerDiv);
             //playground 3 code
+            outerDiv = $('<div>').addClass('playground playground_source');
+            var p3_ul = $('<ul>').addClass('neato');
+            for(var x =1; x<=3;x++){
+                var li = $('<li>').text('Link ' + x);
+                p3_ul.append(li);
+            }
+            outerDiv.append(p3_ul);
+            var p3_fig = $('<figure>').addClass('awesome_picture');
+            var image = $('<img>').attr('src','http://comerecommended.com/wp-content/uploads/2013/01/how-to-get-awesome-back.jpg');
+            var figCap = $('<figcaption>').text("That's right, you are");
+            p3_fig.append(image, figCap);
+            outerDiv.append(p3_fig);
+            $('#playground3').append(outerDiv);
         });
     </script>
 </head>
