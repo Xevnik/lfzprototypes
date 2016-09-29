@@ -41,25 +41,29 @@
     <script>
         $(document).ready(function () {
             //playground 1 code
-            var p1_h1 = $('<h1>').text('I am a heading');
-            var p1_p = $('<p>').text('This is an awesome paragraph');
-            var p1_p2 = $('<p>', {
+            var h1 = $('<h1>').text('I am a heading');
+            var p_1 = $('<p>').text('This is an awesome paragraph');
+            var p_2 = $('<p>', {
                 text: 'This has red text',
                 style: 'color: red'
             });
             var outerDiv = $('<div>').addClass('playground playground_source');
-            outerDiv.append(p1_h1, p1_p, p1_p2);
+            outerDiv.append(h1, p_1, p_2);
             $('#playground1').append(outerDiv);
+
             //playground 2 code
             outerDiv = $('<div>').addClass('playground playground_source');
             var p2_inDiv = $('<div>').addClass('awesome_class').text('Here is some awesome text');
             var p2_inDiv2 = $('<div>').addClass('awesome_class').attr('id','my_aweseome_div2').text('Here is MORE awesome text');
-            var p2_inDiv3 = $('<div>').addClass('awesome_class').attr('id','my_awesome_div3').attr('data-coolness','high').text('Here is EVEN MORE awesome div text');
+            var p2_inDiv3 = $('<div>').addClass('awesome_class').attr('id','my_awesome_div3').attr('data-coolness','high');
+            p2_inDiv3.append('Here is <strong>EVEN MORE</strong> awesome div text');
             outerDiv.append(p2_inDiv,p2_inDiv2, p2_inDiv3);
             $('#playground2').append(outerDiv);
+
             //playground 3 code
             outerDiv = $('<div>').addClass('playground playground_source');
             var p3_ul = $('<ul>').addClass('neato');
+            //creates 3 li and adds into ul
             for(var x =1; x<=3;x++){
                 var li = $('<li>').text('Link ' + x);
                 p3_ul.append(li);
@@ -67,7 +71,7 @@
             outerDiv.append(p3_ul);
             var p3_fig = $('<figure>').addClass('awesome_picture');
             var image = $('<img>').attr('src','http://comerecommended.com/wp-content/uploads/2013/01/how-to-get-awesome-back.jpg');
-            var figCap = $('<figcaption>').text("That's right, you are");
+            var figCap = $('<figcaption>').text("That's right, ").append('<span class="bold_text">you are</span>');
             p3_fig.append(image, figCap);
             outerDiv.append(p3_fig);
             $('#playground3').append(outerDiv);
