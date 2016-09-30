@@ -48,15 +48,18 @@
         }
         function findStudent(targetName){
             var k = 0;
-            while(true){
+            var found = false;
+            while(!found){
+                //checks if desired student matches name in array
                 if(studentArray[k].name == targetName){
+                    //console out if found with associated grade
                     console.log("Found ["+ targetName +"], their grade is: [" + studentArray[k].grade+"]." );
-                    break;
+                    found = true;
                 }else{
                     k++;
                     if(k == studentArray.length) {
                         console.log("Student [" + targetName + "] not found.");
-                        break;
+                        found = true;
                     }
                 }
             }
