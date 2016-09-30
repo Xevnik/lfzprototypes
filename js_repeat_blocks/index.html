@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <title>JS Repeat Blocks</title>
+    <meta charset="UTF-8">
+    <script>
+        var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        var mixedArray = [4,56,11,13,97,22,7,36,19,5,8,10];
+        var classRoom = {desk1: 'Stu', desk2: 'Peggy', desk3: 'LoneStar', desk4: 'George', desk5: 'Sheldon'};
+        var studentArray = [
+            {name: "Bob", grade: 87},
+            {name: "Fred", grade: 82},
+            {name: "George", grade: 93},
+            {name: "Robert", grade: 85}];
+        console.log("Ascending: ");
+        for(var i = 0; i < 10; i++){
+            console.log(numbers[i]);
+        }
+        console.log("Descending: ");
+        for(var j = 9; j >= 0; j--){
+            console.log(numbers[j]);
+        }
+        console.log("Odd: ");
+        for(var z = 0; z < 10; z++){
+            if((numbers[z]%2) != 0) {
+                console.log(numbers[z]);
+            }
+        }
+        //        for(var z in numbers){
+//            if((numbers[z]%2) != 0) {
+//                console.log(numbers[z]);
+//            }
+//        }
+        console.log("Mixed Array Odd: ");
+        for(var y = 0; y < 10; y++){
+            if((mixedArray[y]%2) != 0) {
+                console.log(mixedArray[y]);
+            }
+        }
+//        for(var x in mixedArray){
+//            if((mixedArray[x]%2) != 0) {
+//                console.log(mixedArray[x]);
+//            }
+//        }
+        console.log("Classroom: ");
+        for(var h in classRoom){
+            console.log(classRoom[h] + " is at " + h);
+        }
+        function findStudent(targetName){
+            var k = 0;
+            while(true){
+                if(studentArray[k].name == targetName){
+                    console.log("Found ["+ targetName +"], their grade is: [" + studentArray[k].grade+"]." );
+                    break;
+                }else{
+                    k++;
+                    if(k == studentArray.length) {
+                        console.log("Student [" + targetName + "] not found.");
+                        break;
+                    }
+                }
+            }
+        }
+        console.log("Test 1:");
+        findStudent("George");
+        console.log("Test 2:");
+        findStudent("Fred");
+        console.log("Test 3:");
+        findStudent("Hank");
+    </script>
+</head>
+<body>
+
+</body>
+</html>
