@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <title>JS Reference Data Type</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Kevin chau">
+    <meta name="description" content="Array and Object practice">
+    <script>
+        var student_array = ["Luffy","Usopp","Zoro","Nami","Chopper"];
+        console.log(student_array[2]);
+
+        console.log(student_array);
+        console.log(student_array.length);
+        student_array.push("Robin", "Frankie");
+        console.log(student_array.length);
+        console.log(student_array);
+
+        student={};
+        student.firstName = "Brooks";
+        student.lastName = "Soul King";
+        student.age = 50;
+        student.school = "Thousand Sunny";
+        student.questionList = [];
+        student.hasQuestion = false;
+
+        student.greeting = function(){
+            return "Hello, my name is " + this.firstName;
+        };
+
+        student.aboutMe = function(){
+            return "My full name is " + this.firstName + " " + this.lastName
+            + ", I am " + this.age + " years old and I am a student at " + this.school + ".";
+        };
+
+        student.askQuestion = function(question){
+            this.questionList.push(question);
+            this.hasQuestion = true;
+            return "A question has been added to your list";
+        };
+
+        student.answerQuestion = function(){
+            if(this.hasQuestion === true){
+                this.hasQuestion = false;
+                return this.questionList[this.questionList.length-1];
+            }else{
+                return "You have no pending questions";
+            }
+        };
+
+        console.log("Greeting: ", student.greeting());
+        console.log("About: ", student.aboutMe());
+        console.log("Answer: ", student.answerQuestion());
+        console.log("Question 1: ", student.askQuestion("What is an array?"));
+        console.log("Question 2: ", student.askQuestion("What is an object?"));
+        console.log("Question 3: ", student.askQuestion("What is the meaning of life, the universe and everything else?"));
+        console.log("Question list: ", student.questionList);
+        console.log("Answer question: ", student.answerQuestion());
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
