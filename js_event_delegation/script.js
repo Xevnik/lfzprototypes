@@ -13,11 +13,13 @@ $(document).ready(function(){
         console.log($(this).text());
     });
     var newButton = $("<li><button style='margin-top: 10px'>Delegated Button#5 Handler</button></li>");
-    $("#list").append(newButton);
-    // var toGoggleButton = $("<li><button style='margin-top: 10px'>To Google</button></li>").click(function(){
-    //
-    // });
-    // $("#list").append(toGoggleButton);
-});
+    newList=$("<li>");
+    newButton = $("<button>").attr("style","margin-top: 10px").text("Delegated Button#5");
 
-//TODO turn in js event delegation prototype later
+    $("#list").append(newList.append(newButton));
+
+    var toGoggleButton = $("<button>").attr({"margin-top":"10px"}).text("to Goggle!").click(function(){
+        window.open("http://google.com");
+    });
+    $("#list").append(newList.append(toGoggleButton));
+});
