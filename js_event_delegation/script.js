@@ -17,9 +17,9 @@ $(document).ready(function(){
     newButton = $("<button>").attr("style","margin-top: 10px").text("Delegated Button#5");
 
     $("#list").append(newList.append(newButton));
-
-    var toGoggleButton = $("<button>").attr({"margin-top":"10px"}).text("to Goggle!").click(function(){
+    newNewList=$("<li>");
+    var toGoggleButton = $("<button>").attr("style","margin-top: 10px").text("to Goggle!").click(function(){
         window.open("http://google.com");
     });
-    $("#list").append(newList.append(toGoggleButton));
+    $("#list").append(newNewList.append(toGoggleButton));
 });
