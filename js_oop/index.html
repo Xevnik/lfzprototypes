@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS OOP</title>
+    <meta name="author" content="Kevin Chau">
+    <meta name="description" content="JS OOP practice">
+    <script>
+        //feature set 1
+
+        function coinStack(startAmount){
+            this.value = startAmount;//Sets amount of coins
+            this.addCoins = function(coinsToAdd){
+                this.value += coinsToAdd;//Adds coins to amount had
+            };
+            this.removeCoins = function(coinsToRemove){
+                if(this.value >= coinsToRemove){//if amount had is greater than amount to be removed
+                    this.value -= coinsToRemove;//remove amount entered
+                    return coinsToRemove;
+                }else{
+                    var coinsRemoved = this.value;//otherwise remove all coins had and set to zero
+                    this.value = 0;
+                    return coinsRemoved;//return amount before set to 0 as that is amount removed when set to 0
+                }
+            };
+        }
+
+        var myCoinStack = new coinStack(50);
+        console.log("My coin stack contains: ", myCoinStack.value, " coins.");
+
+        //feature set 2
+
+        myCoinStack.addCoins(15);
+        console.log("Added coins, new amount is: ", myCoinStack.value, " coins.");
+        myCoinStack.removeCoins(37);
+        console.log("Removed coins, new amount is: ", myCoinStack.value, " coins.");
+        var amountRemoved = myCoinStack.removeCoins(55);
+        console.log("Removed: ",amountRemoved, " new amount is: ", myCoinStack.value, " coins.");
+
+        //feature set 3
+
+        //Transferring amount = removing coins from A and adding removed amount to B
+        coinStack.prototype.transferCoins = function(fromStack, amount){
+            var amountRemoved = fromStack.removeCoins(amount);
+            this.addCoins(amountRemoved);
+            return amountRemoved;
+        };
+
+        ericCoins = new coinStack(50);
+        dansCoins = new coinStack(50);
+        console.log("Eric has: ", ericCoins.value, " coins and Dan has: ", dansCoins.value, " coins.");
+
+        var amountTransferred = ericCoins.transferCoins(dansCoins, 30);
+        console.log("Dan transferred: ", amountTransferred, "coins to Eric.");
+        console.log("Eric has: ", ericCoins.value, " coins and Dan has: ", dansCoins.value, " coins.");
+        console.log("****************************");
+
+        //Test that if amount to be removed is greater than amount have, remove amount have and add that instead.
+        amountTransferred = dansCoins.transferCoins(ericCoins, 120);
+        console.log("Eric transferred: ", amountTransferred, "coins to Dan.");
+        console.log("Eric has: ", ericCoins.value, " coins and Dan has: ", dansCoins.value, " coins.");
+    </script>
+</head>
+<body>
+    <h1>Javascript OOP Prototypes</h1>
+</body>
+</html>
