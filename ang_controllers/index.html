@@ -8,16 +8,54 @@
 </head>
 <body ng-app="myApp">
 <div ng-controller="formController as fc">
-    <input type="text" ng-model="fc.form.fName">
-    <input type="text" ng-model="fc.form.lName">
-    <input type="text" ng-model="fc.form.email">
-    <textarea name="" id="" cols="30" rows="10" ng-model="fc.form.comments"></textarea>
+    First Name:<br><input type="text" ng-model="fc.form.fName"><br>
+    Last Name:<br><input type="text" ng-model="fc.form.lName"><br>
+    Email:<br><input type="text" ng-model="fc.form.email"><br>
+    Comments:<br><textarea name="" id="" cols="30" rows="10" ng-model="fc.form.comments" ng-disabled="fc.maxLengthReached()"></textarea><br>
+    <p>Characters remaining: <span ng-bind="fc.showCharLeft()"></span></p>
+
+    <button ng-click="fc.addForm()">Add</button>
+    <button ng-click="fc.form = {}">Clear</button><br>
+    <h2>Data</h2>
+    <table>
+        <tbody>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Comments</th>
+        </tr>
+        <tr ng-repeat="form in fc.formArray">
+            <td>{{ form.fName + ' ' + form.lName}}</td>
+            <td>{{ form.email }}</td>
+            <td>{{ form.comments }}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 <script>
     var app = angular.module("myApp", []);
     app.controller('formController', function(){
         this.form = {};
         this.formArray = [];
+        this.maxCommentLength = 25;
+        this.showCharLeft = function(){
+            if(this.form.comments == undefined){
+                return this.maxCommentLength;
+            }else {
+                return (this.maxCommentLength - this.form.comments.length);
+            }
+        };
+        this.maxLengthReached = function(){
+            if(this.showCharLeft() <= 0){
+                return true;
+            }else{
+                return false;
+            }
+        };
+        this.addForm = function(){
+            this.formArray.push(this.form);
+            this.form = {};
+        };
     })
 </script>
 </body>
