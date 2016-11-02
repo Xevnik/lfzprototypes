@@ -16,27 +16,38 @@
 
     <button ng-click="fc.addForm()">Add</button>
     <button ng-click="fc.form = {}">Clear</button><br>
-    <h2>Data</h2>
-    <table>
-        <tbody>
-        <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Comments</th>
-        </tr>
-        <tr ng-repeat="form in fc.formArray">
-            <td>{{ form.fName + ' ' + form.lName}}</td>
-            <td>{{ form.email }}</td>
-            <td>{{ form.comments }}</td>
-        </tr>
-        </tbody>
-    </table>
+
+    <h2>The Table</h2>
+    <div ng-controller="tableController as tc">
+        <p>Total entries: <span ng-bind="tc.getNumInFormArray();"></span></p>
+        <table>
+            <tbody>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Comments</th>
+                <th>Operation</th>
+            </tr>
+            <tr>
+                <td>{{fc.form.fName + ' ' + fc.form.lName}}</td>
+                <td>{{fc.form.email}}</td>
+                <td>{{fc.form.comments}}</td>
+            </tr>
+            <tr ng-repeat="form in formArray">
+                <td>{{ form.fName + ' ' + form.lName}}</td>
+                <td>{{ form.email }}</td>
+                <td>{{ form.comments }}</td>
+                <td><button ng-click="tc.deleteForm($index);">Delete</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <script>
     var app = angular.module("myApp", []);
-    app.controller('formController', function(){
+    app.controller('formController', function($scope){
         this.form = {};
-        this.formArray = [];
+        $scope.formArray = [];
         this.maxCommentLength = 25;
         this.showCharLeft = function(){
             if(this.form.comments == undefined){
@@ -53,10 +64,18 @@
             }
         };
         this.addForm = function(){
-            this.formArray.push(this.form);
+            $scope.formArray.push(this.form);
             this.form = {};
         };
-    })
+    });
+    app.controller('tableController', function($scope){
+       this.deleteForm = function(formIndex){
+           $scope.formArray.splice(formIndex, 1);
+       };
+       this.getNumInFormArray = function(){
+           return $scope.formArray.length;
+       };
+    });
 </script>
 </body>
 </html>
