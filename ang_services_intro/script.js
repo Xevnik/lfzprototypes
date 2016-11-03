@@ -2,15 +2,14 @@ var app = angular.module('itunesSearch_app', []);
 app.controller('itunesController', function($http, $log){
     this.artist = null;
     this.url = null;
-    $log.log('adfasfdasdf');
     this.createUrl = function(){
-        var tempArr = this.artist.split(' ');
-        this.artist = tempArr.join('+');
-        this.url = 'https://itunes.apple.com/search?term='+ this.artist +'&callback=JSON_CALLBACK';
-        this.searchItunes();
+            var tempArr = this.artist.split(' ');
+            this.artist = tempArr.join('+');
+            this.url = 'https://itunes.apple.com/search?term=' + this.artist + '&callback=JSON_CALLBACK';
     };
     this.searchItunes = function(){
         var self = this;
+        self.createUrl();
         $http({
             method: 'jsonp',
             url: self.url,
@@ -18,10 +17,10 @@ app.controller('itunesController', function($http, $log){
         }).then(
             function(response){
                 self.data = response['data']['results'];
-                $log.log(response)
+                $log.log(self.data);
             },
             function(response){
-                $log.error('Failed to connect to server');
+                self.data = response['data'] || 'Failed to connect to server';
             });
     };
 });

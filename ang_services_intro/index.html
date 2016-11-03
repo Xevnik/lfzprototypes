@@ -8,7 +8,28 @@
 <body ng-app="itunesSearch_app">
 <div ng-controller="itunesController as ic">
     Search: <input type="text" ng-model="ic.artist">
-    <button ng-click="ic.createUrl()">Go</button>
+    <button ng-click="ic.searchItunes()">Go</button>
+    <br><br>
+    Results:
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>#</th>
+            <th>Art</th>
+            <th>Artist</th>
+            <th>Song Title</th>
+            <th>Album</th>
+            <th>Price</th>
+        <tr ng-repeat="results in ic.data">
+            <td>{{ results.kind }}</td>
+            <td>{{ $index + 1}}</td>
+            <td><img ng-src="{{ results.artworkUrl30 }}"</td>
+            <td>{{ results.artistName }}</td>
+            <td>{{ results.trackName}}</td>
+            <td>{{ results.collectionName }}</td>
+            <td>{{ '$'+results.trackPrice }}</td>
+        </tr>
+    </table>
 </div>
 <script src="script.js"></script>
 </body>
