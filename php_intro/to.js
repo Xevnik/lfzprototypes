@@ -83,7 +83,7 @@ function find_greatest_num_and_index(direction)
     }
     else
     {
-        var i = num_array.length;
+        var i = num_array.length - 1;
         var increment = -1;
         var end_loop = 0;
     }
