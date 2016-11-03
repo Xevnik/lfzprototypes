@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+
+</head>
+<body>
+<form action="index.php" method="get">
+    Salutations<input type="checkbox" name='greeting' value="howdy"><br>
+    Message<br><textarea name="message" id="msg" cols="30" rows="10"></textarea><br>
+    <button type='button' onclick="makeAjaxCall()">Send!</button>
+</form>
+<script>
+    function makeAjaxCall(){
+        $.ajax({
+            method: 'post',
+            data:{
+                'greeting': $('input').val(),
+                'textarea':$('#msg').val()
+            },
+            dataType: 'text',
+            url: 'index.php',
+            success: function(response){
+                console.log(response);
+            }
+        });
+    }
+</script>
+</body>
+</html>
