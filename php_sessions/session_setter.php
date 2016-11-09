@@ -1,8 +1,9 @@
 <!-- Session Setter -->
-<?php
-session_start();
-?>
-<form action="session_reader.php">
+<pre>
+    <?php
+    session_start();
+    ?>
+    <form action="session_reader.php">
     Name:
     <br><input type="text" name="user_name"
                value="<?php echo isset($_SESSION['user_name'])?$_SESSION['user_name']:''; ?>"><br>
@@ -15,6 +16,8 @@ session_start();
     <button>Submit</button>
 </form>
 
-<?php
-print_r($_SESSION);
-?>
+    <?php
+    print_r($_SESSION);
+    var_dump($_SESSION);
+    ?>
+</pre>

@@ -1,22 +1,21 @@
 <!-- Session Reader -->
+<pre>
 <?php
 session_start();
-print_r($_GET);
-$error = array();
-
+$_SESSION = $_GET;
+$_SESSION['errors'] = array();
 if(preg_match('/\d/', $_GET['user_name'])){
-    array_push($error, 'Invalid Name Entered');
+    array_push($_SESSION['errors'], array("name"=>"Invalid Name entered"));
 }
 if(preg_match('/\D/', $_GET['user_age'])){
-    array_push($error, 'Invalid Age Entered');
+    array_push($_SESSION['errors'], array('age'=>'Invalid Age Entered'));
 }
 if(preg_match('/\d/', $_GET['user_occupation'])){
-    array_push($error, 'Invalid Occupation Entered');
+    array_push($_SESSION['errors'], array('occupation'=>'Invalid Occupation Entered'));
 }
-if(count($error) > 0){
-    $_SESSION['errors'] = $error;
-    header('location: session_setter.php');
+if(count($_SESSION['errors']) > 0){
+    print_r($_SESSION);
+    //header('location: session_setter.php');
 }
-$_SESSION = $_GET;
-
 ?>
+</pre>
