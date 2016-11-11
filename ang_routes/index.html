@@ -1,14 +1,15 @@
-<html>
+<html ng-app="routeApp">
 <head>
     <!-- bootstrap and fontawesome included for your enjoyment -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
 
     <!-- load angular and angular route via CDN below, also include your javascript file-->
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
+    <script src="script.js"></script>
 </head>
-<body>
-
+<body ng-controller="routeCtrl as rc">
 <!-- Header and Navbar -->
 <header>
     <nav class="navbar navbar-default">
@@ -28,6 +29,7 @@
 
 <!-- Main content views injected here -->
 <div id="main">
+    <div ng-view></div>
     <!-- angular templating -->
     <!-- this is where content will be injected -->
 </div>
