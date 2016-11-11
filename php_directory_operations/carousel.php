@@ -44,13 +44,16 @@
         #next{
             right: 0;
         }
+        .hidden{
+            left: 100%;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="image_container">
-        <button id='prev' class="btn btn-info" onclick="prev_image()"> < </button>
-        <button id='next' class="btn btn-info" onclick="next_image()"> > </button>
+        <button id='prev' class="btn btn-info" onclick="prev_image(this)"> < </button>
+        <button id='next' class="btn btn-info" onclick="next_image(this)"> > </button>
     </div>
 </div>
 <script>
@@ -60,7 +63,8 @@
         load_files();
     });
     function initialize(){
-
+        console.log('Start it!');
+        $('#'+activeImg).removeClass('hidden');
     }
     function load_files(){
         $.ajax({
@@ -70,19 +74,29 @@
             success: function(resp){
                 if(resp.success){
                     console.log('ajax call ', resp);
-                    for (var img in resp.files){
+                    for (var img = 0; img < resp.files.length; img++){
                         var imgSrc = resp.files[img];
                         console.log(imgSrc);
                         image_array.push(imgSrc);
                         var $img = $('<img>',{
-                            src: imgSrc
+                            src: imgSrc,
+                            class: 'hidden',
+                            id: img
                         });
                         $('.image_container').append($img);
                     }
                     console.log('Image Array ', image_array);
+                    initialize();
+
                 }
             }
         });
+    }
+    function prev_image(current){
+        console.log('prev ', current);
+    }
+    function next_image(current){
+        console.log('next ', current)
     }
 </script>
 </body>
