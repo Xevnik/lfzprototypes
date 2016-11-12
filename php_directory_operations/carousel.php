@@ -28,14 +28,18 @@
             top: 0;
         }
         .image_container{
+            top: 5vh;
             position: relative;
             width: 800px;
             height: 600px;
             left:50%;
-            transform: translateX(-50%);
+            transform: translate(-50%);
+            overflow: hidden;
         }
         button{
             position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
             z-index: 1;
         }
         #prev{
@@ -44,7 +48,7 @@
         #next{
             right: 0;
         }
-        .hidden{
+        .hideImg{
             left: 100%;
         }
     </style>
@@ -52,8 +56,12 @@
 <body>
 <div class="container">
     <div class="image_container">
-        <button id='prev' class="btn btn-info" onclick="prev_image(this)"> < </button>
-        <button id='next' class="btn btn-info" onclick="next_image(this)"> > </button>
+        <div class="buttonDiv">
+            <button id='prev' class="btn btn-info" onclick="prev_image()"> < </button>
+        </div>
+        <div class="buttonDiv">
+            <button id='next' class="btn btn-info" onclick="next_image()"> > </button>
+        </div>
     </div>
 </div>
 <script>
@@ -64,7 +72,7 @@
     });
     function initialize(){
         console.log('Start it!');
-        $('#'+activeImg).removeClass('hidden');
+        $('#'+activeImg).css('left','0');
     }
     function load_files(){
         $.ajax({
@@ -80,7 +88,7 @@
                         image_array.push(imgSrc);
                         var $img = $('<img>',{
                             src: imgSrc,
-                            class: 'hidden',
+                            class: 'hideImg',
                             id: img
                         });
                         $('.image_container').append($img);
@@ -92,11 +100,25 @@
             }
         });
     }
-    function prev_image(current){
-        console.log('prev ', current);
+    function prev_image(){
+        $('#' + activeImg).animate({left:'100%'});
+        if(activeImg-1 === -1){
+            activeImg = image_array.length-1;
+        }else{
+            activeImg--;
+        }
+        $('#' + activeImg).css('left','-100%');
+        $('#' + activeImg).animate({left:'0'});
     }
-    function next_image(current){
-        console.log('next ', current)
+    function next_image(){
+        $('#' + activeImg).animate({left:'-100%'});
+        if(activeImg+1 === image_array.length){
+            activeImg = 0;
+        }else{
+            activeImg++;
+        }
+        $('#' + activeImg).css('left','100%');
+        $('#' + activeImg).animate({left:'0'});
     }
 </script>
 </body>
