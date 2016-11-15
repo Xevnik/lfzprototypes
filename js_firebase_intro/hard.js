@@ -1,5 +1,13 @@
 // harder Firbase Intro Prototype js file
-
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyBUzvNLzTUym0KsWSkuZZVT--ZbkKnpS-c",
+    authDomain: "lfzintro.firebaseapp.com",
+    databaseURL: "https://lfzintro.firebaseio.com",
+    storageBucket: "lfzintro.appspot.com",
+    messagingSenderId: "684400452761"
+};
+firebase.initializeApp(config);
 function updateDom(d){
     var table = $('.sgt tbody');
     table.html('');

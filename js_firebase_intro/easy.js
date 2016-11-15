@@ -24,21 +24,40 @@ $(document).ready(function(){
 });
 
 // Add config data
-
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyBUzvNLzTUym0KsWSkuZZVT--ZbkKnpS-c",
+    authDomain: "lfzintro.firebaseapp.com",
+    databaseURL: "https://lfzintro.firebaseio.com",
+    storageBucket: "lfzintro.appspot.com",
+    messagingSenderId: "684400452761"
+};
 // Init firebase
+firebase.initializeApp(config);
 
 // Create firebase ref
-
+var fbRef = firebase.database();
 // Create event listener for the students node in your database
-
+fbRef.ref('Student').on('value', function(snapshot){
+    updateDom(snapshot.val());
+});
 // Complete the addStudent function
 function addStudent(sid, sname, course, grade){
-
+    var newStudent = {
+        student_id: sid,
+        course: course,
+        grade: grade,
+        student_name: sname
+    };
+    fbRef.ref('Student').push(newStudent);
 }
 
 // complete the delete function
 function deleteStudent(key, ele){
-
+    var stuToDel = getRowData($(ele).closest('tr'));
+    if(confirm('Delete ' + stuToDel.sid + ' ' + stuToDel.sname)){
+        fbRef.ref('Student/' + key).set(null);
+    }
 }
 
 // complete the update function
