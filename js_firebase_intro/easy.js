@@ -62,7 +62,15 @@ function deleteStudent(key, ele){
 
 // complete the update function
 function updateStudent(id){
-
+    console.log('update stu: ', id);
+    var data = getFormData();
+    var dataToUpdate = {
+        student_name: data.sname,
+        student_id: data.sid,
+        course: data.course,
+        grade: data.grade
+    };
+    fbRef.ref('Student/' + id).update(dataToUpdate);
 }
 
 function updateDom(d){
