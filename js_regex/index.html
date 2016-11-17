@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js_regex</title>
+    <script>
+        //feature set 1
+        var patt1 = /e/g;
+        var fs1a = patt1.exec('hello');
+        console.log('fs1a: ', fs1a);
+
+        var str = 'HE entEred';
+        var fs1b = str.match(/e/gi);
+        console.log('fs1b: ', fs1b, ' str: ', str);
+
+        var str2 = 'stir the star';
+        var str3 = 'stim the stat';
+        var str4 = 'stir the stat';
+        var fs1c = str2.match(/st[ia]r/g);
+        console.log('fs1c: ', fs1c, ' str2: ', str2);
+        console.log(str3+ ' Got: ' + str3.match(/st[ia]r/g));
+        console.log(str4+ ' Got: ' + str4.match(/st[ia]r/g));
+
+        //feature set 2
+        phonePatt = /^1?[\s\-\(]?([0-9]{3})[\)]?[-\s\.]*([0-9]{3})[-\s\.]*([0-9]{4})$/;
+        var phoneNum = [
+            //Valid Phone Numbers
+            '818 555 1212',
+            '818-555-1212',
+            '1818 555 1212',
+            '1818-555-1212',
+            '1 818 555 1212',
+            '1-818-555-1212',
+            '(818) 555-1212',
+            '8185551212',
+            '818      555      1212',
+            '818 555-1212',
+            '18185551212',
+            //Invalid Phone Numbers
+            '818555121',
+            '818?5551212',
+            '8185-55-1212',
+            '555-1212',
+            'eight one eight, five five five, one two one two'
+        ];
+        console.warn('*******Feature Set 2********');
+        for(var i = 0; i < phoneNum.length; i++){
+            if(phonePatt.test(phoneNum[i])) {
+                console.info(phoneNum[i] + ' is valid' );
+            }else{
+                console.error(phoneNum[i] + ' is invalid');
+            }
+
+        }
+        //feature set 3
+        passwordPatt = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)^[a-zA-Z][a-zA-Z\d]{5,31}$/;
+        var testPasswords = [
+            //Valid Passwords
+            'helloDude3',
+            'Pa5sWoRd',
+            'thisIsaReallyL0NGpassword',
+            //Invalid Passwords
+            'short',
+            'nocapsbutanumber1',
+            '5tartsWithANumber',
+            'ALLCAPSBUT4NUMBER',
+            'toDamnManyLettersForThisToBeAValidP4sswordYouKnowIt',
+            'ill#g@l_characters'
+        ];
+        console.warn('*************Feature Set 3*************');
+        for(password in testPasswords){
+            if(passwordPatt.test(testPasswords[password])) {
+                console.info(testPasswords[password] + ' is valid');
+            }else{
+                console.error(testPasswords[password] + ' is invalid');
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>JavaScript - Regular Expressions</h1>
+</body>
+</html>
