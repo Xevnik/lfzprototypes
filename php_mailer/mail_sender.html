@@ -1,17 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Email Form</title>
+	<style>
+		#spinner {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 2;
+		}
+		#spinnerShadow{
+			position: fixed;
+			width: 100vw;
+			height: 100vh;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,.4);
+			z-index: 1;
+		}
+		#errEmail, #errName, #errSubject, #error{
+			color: red;
+		}
+		#allGreen{
+			color: green;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('#submitBtn').click(validateForm);
+		});
+		function validateForm(){
+			$('#errName').html(($('#inpName').val()==='')?'Please enter your name<br>':'');
+			$('#errEmail').html(($('#inpEmail').val()==='')?'Please enter your email<br>':'');
+			$('#errSubject').html(($('#inpSubject').val()==='')?'Please enter a subject<br>':'');
+
+			sendForm();
+		}
+
+		function sendForm() {
+			var $spinner = $('<div>', {
+				id: 'spinner'
+			});
+			var $img = $('<img>', {
+				src: 'http://beta.mmauteran.com/wp-content/uploads/2016/08/loading.gif'
+			});
+			var $shadow = $('<div>', {
+				id: 'spinnerShadow'
+			});
+			$spinner.append($img);
+			$('body').append($shadow, $spinner);
+
+			$.ajax({
+				method: 'post',
+				dataType: 'json',
+				data: {
+					name: $('#inpName').val(),
+					email: $('#inpEmail').val(),
+					subject: $('#inpSubject').val(),
+					body: $('#textBody').val()
+				},
+				url: 'mail_handler.php',
+				error: function(error, response){
+					$('#spinner, #spinnerShadow').remove();
+					console.log('Uh oh...That was unexpected');
+					console.log(arguments);
+				},
+				success: function(response) {
+					$('#spinner, #spinnerShadow').remove();
+					console.log('Response: ', response);
+					$('#result', {
+						id: (response.success)?'allGreen':'error',
+						html: response.message
+					});
+				}
+			});
+		}
+	</script>
 </head>
 <body>
-	<form method="post" action="mail_handler.php">
-		<input name="name" placeholder="your name"><br>
-		<input name="email" placeholder="your email address"><br>
-		<input name="subject" placeholder="Subject"><br>
-		<textarea name="body">
+<form method="post" action="">
+	<input name="name" id="inpName" placeholder="your name"><br>
+	<span id="errName"></span>
+	<input name="email" id="inpEmail" placeholder="your email address"><br>
+	<span id="errEmail"></span>
+	<input name="subject" id="inpSubject" placeholder="Subject"><br>
+	<span id="errSubject"></span>
+	<textarea name="body" id="textBody" placeholder="Your Message">
 Your message
 		</textarea><br>
-		<button type="submit" name="submit" value="submit">Send Mail</button>
-	</form>
+	<button type="button" name="submit" id='submitBtn' value="submit">Send Mail</button>
+	<span id="result"></span>
+</form>
 </body>
 </html>

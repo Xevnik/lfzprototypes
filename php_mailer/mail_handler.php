@@ -1,8 +1,21 @@
 <?php
+ob_start();
+$errors = [];
+if(strlen($_POST['name']) === 0 || strlen($_POST['subject']) === 0 || strlen($_POST['email']) === 0){
+    $errors[] = 'Forms not filled out';
+}
+
+if(count($errors) > 0){
+    $output = [];
+    $output['success'] = false;
+    $output['message'] = $errors;
+    print(json_encode($output));
+    exit();
+}
 require_once('email_config.php');
 require('phpmailer/PHPMailer/PHPMailerAutoload.php');
 $mail = new PHPMailer;
-$mail->SMTPDebug = 3;                               // Enable verbose debug output
+$mail->SMTPDebug = 0;                               // Enable verbose debug output
 
 $mail->isSMTP();                                      // Set mailer to use SMTP
 $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
@@ -41,10 +54,18 @@ $mail->Subject = $_POST['subject'];
 $mail->Body    = $message;
 $mail->AltBody = htmlentities($_POST['body']);
 
+$debug = ob_get_contents();
+ob_end_clean();
+$output = [
+    'success' => false,
+    'message' => ''
+];
 if(!$mail->send()) {
-    echo 'Message could not be sent.';
-    echo 'Mailer Error: ' . $mail->ErrorInfo;
+    $output['message'] .= 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
 } else {
-    echo 'Message has been sent';
+    $output['message'] .= 'Message has been sent';
+    $output['success'] = true;
 }
+$output_json = json_encode($output);
+print($output_json);
 ?>
